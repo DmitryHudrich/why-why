@@ -6,7 +6,11 @@ COPY Cargo.toml Cargo.lock ./
 
 RUN mkdir src && echo "fn main() { println!(\"cache bro\"); }" > src/main.rs
 
-RUN apt update && apt install pkg-config && cargo build --release
+RUN apt-get update && apt-get install -y \
+    curl \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && cargo build --release
 
 COPY src ./src
 
