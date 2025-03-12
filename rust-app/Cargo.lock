@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "loggin-bebra"
+name = "rust-app"
 version = "0.1.0"

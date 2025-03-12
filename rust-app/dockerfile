@@ -1,0 +1,23 @@
+FROM rust:1-slim-bullseye AS builder
+
+WORKDIR /usr/src/app
+
+COPY Cargo.toml Cargo.lock ./
+
+RUN mkdir src && echo "fn main() { println!(\"cache bro\"); }" > src/main.rs
+
+RUN cargo build --release
+
+COPY src ./src
+
+RUN cargo build --release
+
+FROM debian:bullseye-slim
+
+WORKDIR /app
+
+COPY --from=builder /usr/src/app/target/release/rust-app /app/rust-app
+
+ENTRYPOINT ["/app/rust-app"]
+
+
