@@ -8,6 +8,7 @@ use serde_json::{Value, json};
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    println!("сосать");
     let url = Url::parse("https://opensearch-node:9200")?;
     let conn_pool = SingleNodeConnectionPool::new(url);
     let transport = TransportBuilder::new(conn_pool).disable_proxy().build()?;
